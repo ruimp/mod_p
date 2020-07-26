@@ -2,4 +2,4 @@
 
 2048 but mod p.
 
-Number theorists rejoice!
+__Number theorists rejoice!__
