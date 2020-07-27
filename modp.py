@@ -7,7 +7,7 @@ class Board:
         self.shape = shape
         self.board = np.zeros(shape, dtype=int)
         self.p = p
-
+        self.score = 0
 
     def sum_left(self, v):
         nums = v[v != 0]
@@ -39,15 +39,19 @@ class Board:
         for i in range(self.shape[1]):
             self.board[:, i] = self.sum_right(self.board[:, i])
 
-board = Board((4, 4), 5)
-board.board[2, 2] = 2
-board.board[1, 1] = 3
-board.board[0, 1] = 3
-board.board[0, 2] = 2
-board.board[2, 0] = 2
-board.board[1, 2] = 1
-board.board[2, 3] = 4
+    def get_score(self):
+        self.score = np.sum(self.board)
 
-print(board.board)
-board.move_down()
-print(board.board)
+    def new_tile(self):
+        inds = np.where(self.board == 0)
+        rand_ind = np.random.randint(inds[0].size)
+        tile_ind = np.array(inds)[:, rand_ind]
+        self.board[tile_ind[0], tile_ind[1]] = 2
+
+    def check_loss(self):
+        ver_diff = self.board[1:, :] - self.board[:-1, :]
+        hor_diff = self.board[:, 1:] - self.board[:, :-1]
+        if 0 in ver_diff or 0 in hor_diff:
+            return False
+        else:
+            return True
