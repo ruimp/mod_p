@@ -71,3 +71,6 @@ class Board:
             return False
         else:
             return True
+
+    def check_win(self):
+        return np.any(self.board == 1)
