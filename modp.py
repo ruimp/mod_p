@@ -24,20 +24,36 @@ class Board:
         return np.concatenate((np.zeros(v.size - nums.size), nums))
 
     def move_left(self):
+        new_board = np.zeros(self.shape, dtype=int)
         for i in range(self.shape[0]):
-            self.board[i, :] = self.sum_left(self.board[i, :])
+            new_board[i, :] = self.sum_left(self.board[i, :])
+        null_move = np.all(new_board - self.board == 0)
+        self.board = new_board
+        return null_move
 
     def move_up(self):
-         for i in range(self.shape[1]):
-            self.board[:, i] = self.sum_left(self.board[:, i])
+        new_board = np.zeros(self.shape, dtype=int)
+        for i in range(self.shape[1]):
+            new_board[:, i] = self.sum_left(self.board[:, i])
+        null_move = np.all(new_board - self.board == 0)
+        self.board = new_board
+        return null_move
 
     def move_right(self):
+        new_board = np.zeros(self.shape, dtype=int)
         for i in range(self.shape[0]):
-            self.board[i, :] = self.sum_right(self.board[i, :])
+            new_board[i, :] = self.sum_right(self.board[i, :])
+        null_move = np.all(new_board - self.board == 0)
+        self.board = new_board
+        return null_move
 
     def move_down(self):
+        new_board = np.zeros(self.shape, dtype=int)
         for i in range(self.shape[1]):
-            self.board[:, i] = self.sum_right(self.board[:, i])
+            new_board[:, i] = self.sum_right(self.board[:, i])
+        null_move = np.all(new_board - self.board == 0)
+        self.board = new_board
+        return null_move
 
     def get_score(self):
         self.score = np.sum(self.board)
