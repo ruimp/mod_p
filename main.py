@@ -8,8 +8,9 @@ pg.font.init()
 clock = pg.time.Clock()
 
 # generate board
+
 shape = (4, 4)
-p = 9
+p = 5
 board = gui.Gboard(shape, p)
 board.new_tile()
 
@@ -17,6 +18,7 @@ board.new_tile()
 tick_rate = 30
 game_over = False
 keyup = True
+
 while not game_over:
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -25,6 +27,9 @@ while not game_over:
     board.draw()
     pg.display.update()
     clock.tick(tick_rate)
+
+    if board.check_win() == True:
+        break
 
     if event.type == pg.KEYUP:
         keyup = True
@@ -47,5 +52,17 @@ while not game_over:
             if not null_move:
                 board.new_tile()
         keyup = False
+    
+
+while not game_over:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            game_over = True
+
+    board.win_screen()
+    pg.display.update()
+    clock.tick(tick_rate)
+
+
 pg.quit()
 quit()

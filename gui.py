@@ -18,7 +18,7 @@ class Gboard(modp.Board):
             8: (142, 188, 187)
         }
         self.font_color = ()
-        self.font = pg.font.SysFont("Iosevka Term Bold", 42)
+        self.font = pg.font.SysFont("FireCode Nerd Font", 42)
         self.screen_shape = (800, 800)
         self.screen = pg.display.set_mode(self.screen_shape)
         super().__init__(shape, p)
@@ -34,3 +34,8 @@ class Gboard(modp.Board):
                 if self.board[i, j] != 0:
                     txt_surf = self.font.render(str(self.board[i, j]), True, (40, 40, 20))
                     self.screen.blit(txt_surf, (x_pos + 92, y_pos + 88))
+    
+    def win_screen(self):
+        pg.draw.rect(self.screen, (67, 76, 94), (0, 0, 800, 800))
+        txt_surf = self.font.render("You Win!", True, (40, 40, 20))
+        self.screen.blit(txt_surf, (344, 380))
